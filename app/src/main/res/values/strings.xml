@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">PasswordMatchApp</string>
+    <string name="enter">enter</string>
+    <string name="password">Password</string>
+</resources>
