@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private String lastCallNumber;
     private String positionMagneticField;
     private int BatteryLevel;
+    private boolean firstEnterToApp;
 
 
     @Override
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         lastCallNumber = EMPTY;
         positionMagneticField = EMPTY;
         BatteryLevel = ZERO;
+        firstEnterToApp = true;
 
 
     }
@@ -197,6 +200,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void disableErrorMsg() {
         password.setErrorEnabled(false);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        int checkIfPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALL_LOG);
+        if (hasFocus && !firstEnterToApp && checkIfPermission == PackageManager.PERMISSION_GRANTED) {
+            getLastPhoneNumberCall();
+
+        }
+        firstEnterToApp = false;
     }
 
 }
